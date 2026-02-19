@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block container %}
+
+<div class="relative bg-neutral-primary-soft max-w-xs w-full p-8 border border-default rounded-base shadow-lg mx-auto mt-10">
+    <div class="flex flex-col items-center text-center">
+
+
+        <button id="dropdownButton" data-dropdown-toggle="dropdown" class="absolute top-2 end-2 text-body hover:text-heading bg-neutral-primary-soft box-border border border-transparent hover:bg-neutral-tertiary focus:ring-4 focus:ring-neutral-tertiary rounded-base p-1.5 focus:outline-none" type="button">
+            <span class="sr-only">Open dropdown</span>
+            <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="3" d="M6 12h.01m6 0h.01m5.99 0h.01"/></svg>
+        </button>
+        <!-- Dropdown menu -->
+        <div id="dropdown" class="z-10 bg-neutral-primary-medium border border-default-medium rounded-base shadow-lg w-36 block hidden">
+            <ul class="p-2 text-sm text-body font-medium" aria-labelledby="dropdownButton">
+                <li>
+                    <a href="#" class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded-md">Edit</a>
+                </li>
+                <li>
+                    <a href="#" class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded-md">Export Data</a>
+                </li>
+                <li>
+                    <a href="#" class="inline-flex items-center w-full p-2 text-fg-danger hover:bg-neutral-tertiary-medium rounded-md">Delete</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="relative mb-4">
+    <a href="index" rel="noopener noreferrer" class="transition-opacity hover:opacity-80">
+        <img class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-sm" 
+             src="/static/img/jijo.jpeg" 
+             alt="Foto de {{nombre}}"/>
+    </a>
+        </div>
+
+        <h5 class="text-2xl font-bold tracking-tight text-heading">
+            {{nombre}} {{apaterno}}
+        </h5>
+        <p class="text-sm text-body mt-1">
+            {{email}}
+        </p>
+
+        <div class="flex mt-6 gap-3">
+            <button type="button" class="inline-flex items-center text-white bg-brand hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium rounded-base text-sm px-5 py-2.5 transition-colors focus:outline-none">
+                <svg class="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12h4m-2 2v-4M4 18v-1a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Zm8-10a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                </svg>
+                Follow me
+            </button>
+            
+            <button type="button" class="inline-flex items-center text-body bg-neutral-secondary-medium border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium rounded-base text-sm px-5 py-2.5 transition-colors focus:outline-none">
+                Message
+            </button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
