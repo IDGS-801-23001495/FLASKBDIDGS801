@@ -53,13 +53,16 @@ Nuevo
                     </div>
                 </th>
                 <th scope="col" class="px-6 py-3 font-medium">
-                    NOMBRE
+                    NOMBRE(S)
                 </th>
                 <th scope="col" class="px-6 py-3 font-medium">
-                    APELLIDO PATERNO
+                    APELLIDOS
                 </th>
                 <th scope="col" class="px-6 py-3 font-medium">
                     CORREO
+                </th>
+                <th scope="col" class="px-6 py-3 font-medium">
+                    TELEFONO
                 </th>
                 <th scope="col" class="px-6 py-3 font-medium">
                     ACCION
@@ -79,10 +82,13 @@ Nuevo
                     {{alum.nombre}}
                 </th>
                 <td class="px-6 py-4">
-                    {{alum.apaterno}}
+                    {{alum.apellidos}}
                 </td>
                 <td class="px-6 py-4">
                     {{alum.email}}
+                </td>
+                <td class="px-6 py-4">
+                    {{alum.telefono}}
                 </td>
                 <td class="px-6 py-4">
                     <a href="modificar?id={{alum.id}}" class="font-medium text-fg-brand hover:underline">Editar</a>
