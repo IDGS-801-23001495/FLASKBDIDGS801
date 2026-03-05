@@ -22,3 +22,24 @@ class UserForm2(Form):
     telefono=IntegerField("Telefono",[
         validators.NumberRange(min=10, max=10, message="Valor no valido")
     ])
+
+class UserForm3(Form): 
+    matricula=IntegerField("Matricula",[
+        validators.NumberRange(min=1, max=20, message="Valor no valido")
+    ])
+    nombre=StringField("Nombre",[
+        validators.DataRequired(message="El nombre es requerido"),
+        validators.length(min=4, max=20, message="Requiere min=4 max=20")
+    ])
+    apellidos=StringField("Apellidos",[
+        validators.DataRequired(message="El campo es requerido"),
+        validators.length(min=3, max=10, message="Ingrese un apellido valido")
+    ])
+    especialidad=StringField("Especialidad",[
+        validators.DataRequired(message="El campo es requerido"),
+        validators.length(min=3, max=10, message="Ingrese un apellido valido")
+    ])
+    correo=EmailField("Correo", [
+        validators.Email(message="Ingresa un correo valido")
+    ])
+    
