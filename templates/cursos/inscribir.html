@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+
+{% block container %}
+
+<style>
+  .purple-icon-bg     { background-color: rgba(139, 92, 246, 0.10); border-color: rgba(139, 92, 246, 0.20); }
+  .purple-icon        { color: #8b5cf6; }
+  .purple-border-top  { border-top: 3px solid #8b5cf6; }
+  .purple-btn         { background-color: #7c3aed; color: #fff; }
+  .purple-btn:hover   { background-color: #6d28d9; }
+</style>
+
+<div class="max-w-2xl mx-auto mt-10 px-4">
+    <div class="flex items-center gap-3 mb-6">
+        <div class="purple-icon-bg flex items-center justify-center w-10 h-10 rounded-xl border">
+            <svg class="purple-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                <path d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a5.97 5.97 0 0 0-.942 3.197M12 10.5a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/>
+            </svg>
+        </div>
+        <div>
+            <h1 class="text-xl font-semibold text-heading leading-tight">Inscribir Alumno</h1>
+            <p class="text-xs text-body">Asigna un estudiante a un curso existente</p>
+        </div>
+    </div>
+
+    <div class="purple-border-top bg-neutral-primary-soft border border-default rounded-base shadow-xs p-8">
+        <form action="/Cursos/inscribir" method="post">
+            <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+
+            <div class="relative z-0 w-full mb-8 group">
+                <label for="alumno_id" class="block mb-2 text-xs font-medium text-body uppercase tracking-wider">Seleccionar Alumno</label>
+                <select name="alumno_id" id="alumno_id" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5" required>
+                    <option value="" disabled selected>Elige un alumno...</option>
+                    {% for a in alumnos %}
+                    <option value="{{ a.id }}">{{ a.nombre }} {{ a.apellidos }} (ID: {{ a.id }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="relative z-0 w-full mb-10 group">
+                <label for="curso_id" class="block mb-2 text-xs font-medium text-body uppercase tracking-wider">Seleccionar Curso / Materia</label>
+                <select name="curso_id" id="curso_id" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5" required>
+                    <option value="" disabled {% if not seleccionado %}selected{% endif %}>Elige una materia...</option>
+                    
+                    {% for c in cursos %}
+                    <option value="{{ c.id }}" {% if seleccionado == c.id|string %}selected{% endif %}>
+                        {{ c.nombre }} - Prof. {{ c.maestro.nombre }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+
+
+
+
+            {% if error_duplicado %}
+    <div class="flex items-center gap-2 mb-4 text-red-500 bg-red-50 p-3 rounded-base border border-red-100">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span class="text-xs font-medium">Este alumno ya se encuentra inscrito en la materia seleccionada.</span>
+    </div>
+{% endif %}
+
+
+            <div class="flex items-center gap-3">
+                <button type="submit" class="purple-btn inline-flex items-center gap-1.5 px-5 py-2.5 text-sm font-medium rounded-base active:scale-95 transition-all shadow-sm focus:outline-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <path d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                    </svg>
+                    Confirmar Inscripción
+                </button>
+                <a href="/Cursos" class="inline-flex items-center gap-1.5 px-5 py-2.5 text-sm font-medium rounded-base border border-default-medium text-body hover:bg-neutral-secondary-medium transition-all">
+                    Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block container %}
+
+<style>
+  .purple-icon-bg     { background-color: rgba(139, 92, 246, 0.10); border-color: rgba(139, 92, 246, 0.20); }
+  .purple-icon        { color: #8b5cf6; }
+  .purple-border-top  { border-top: 3px solid #8b5cf6; }
+  .purple-btn         { background-color: #7c3aed; color: #fff; }
+  .purple-btn:hover   { background-color: #6d28d9; }
+</style>
+
+<div class="max-w-2xl mx-auto mt-10 px-4">
+    <div class="flex items-center gap-3 mb-6">
+        <div class="purple-icon-bg flex items-center justify-center w-10 h-10 rounded-xl border">
+            <svg class="purple-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                <path d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Z"/>
+            </svg>
+        </div>
+        <div>
+            <h1 class="text-xl font-semibold text-heading leading-tight">Modificar Curso</h1>
+            <p class="text-xs text-body">Actualiza la información de la materia</p>
+        </div>
+    </div>
+
+    <div class="purple-border-top bg-neutral-primary-soft border border-default rounded-base shadow-xs p-8">
+        <form action="/Cursos/modificar" method="post">
+            <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+            
+            <input type="hidden" name="id" value="{{ form.id.data }}">
+
+            <div class="relative z-0 w-full mb-8 group">
+                <input type="text" name="nombre" id="nombre" value="{{ form.nombre.data }}" class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer" placeholder=" " required />
+                <label for="nombre" class="absolute text-sm text-body duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-fg-brand peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nombre del Curso</label>
+            </div>
+
+            <div class="relative z-0 w-full mb-8 group">
+                <textarea name="descripcion" id="descripcion" rows="2" class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer" placeholder=" ">{{ form.descripcion.data }}</textarea>
+                <label for="descripcion" class="absolute text-sm text-body duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-fg-brand peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Descripción o temario breve</label>
+            </div>
+
+            <div class="relative z-0 w-full mb-10 group">
+                <label for="maestro_id" class="block mb-2 text-xs font-medium text-body uppercase tracking-wider">Cambiar Maestro Responsable</label>
+                <select name="maestro_id" id="maestro_id" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5" required>
+                    {% for m in maestros %}
+                        <option value="{{ m.matricula }}" {% if m.matricula == form.maestro_id.data %} selected {% endif %}>
+                            {{ m.nombre }} {{ m.apellidos }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <button type="submit" class="purple-btn inline-flex items-center gap-1.5 px-5 py-2.5 text-sm font-medium rounded-base active:scale-95 transition-all shadow-sm focus:outline-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                    Guardar Cambios
+                </button>
+                <a href="/Cursos" class="inline-flex items-center gap-1.5 px-5 py-2.5 text-sm font-medium rounded-base border border-default-medium text-body hover:bg-neutral-secondary-medium transition-all">
+                    Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

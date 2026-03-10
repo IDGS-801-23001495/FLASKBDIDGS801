@@ -42,7 +42,7 @@ def detalles():
 		apellidos=alumn1.apellidos
 		email=alumn1.email
 		telefono=alumn1.telefono
-	return render_template("/alumnos/detalles.html", id=id, nombre=nombre, apellidos=apellidos, email=email, telefono=telefono)
+	return render_template("/alumnos/detalles.html", id=id, nombre=nombre, apellidos=apellidos, email=email, telefono=telefono, alumno_obj=alumn1)
 
 @alumnos.route("/Alumnos/modificar", methods=["GET", "POST"])
 def nodificar():

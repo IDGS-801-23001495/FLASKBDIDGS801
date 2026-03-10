@@ -80,6 +80,31 @@
     </div>
   </div>
 
+
+
+    <div class="px-8 py-4 border-t border-default bg-gray-50/50">
+      <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Materias Inscritas</h3>
+      
+      {% if alumno_obj.cursos %}
+        <div class="space-y-2">
+          {% for curso in alumno_obj.cursos %}
+            <div class="flex items-center justify-between p-2 bg-white border border-default rounded-md shadow-sm">
+              <span class="text-sm font-medium text-heading">{{ curso.nombre }}</span>
+              <span class="text-[10px] blue-badge px-2 py-0.5 rounded-full">Maestro: {{ curso.maestro.nombre }}</span>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="text-xs text-body italic">El alumno no tiene cursos registrados.</p>
+      {% endif %}
+    </div>
+    
+
+    <div class="px-8 py-4 border-t border-default flex items-center gap-3">
+      </div>
+
+
+
 </div>
 
 {% endblock %}

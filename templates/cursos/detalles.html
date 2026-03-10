@@ -1,0 +1,117 @@
+{% extends "layout.html" %}
+{% block container %}
+
+<style>
+  .purple-icon-bg     { background-color: rgba(139, 92, 246, 0.10); border-color: rgba(139, 92, 246, 0.20); }
+  .purple-icon        { color: #8b5cf6; }
+  .purple-badge       { background-color: rgba(139, 92, 246, 0.10); border-color: rgba(139, 92, 246, 0.20); color: #7c3aed; }
+  .purple-border-top  { border-top: 3px solid #8b5cf6; }
+  .purple-btn         { background-color: #7c3aed; color: #fff; }
+  .purple-btn:hover   { background-color: #6d28d9; }
+  .purple-link        { color: #7c3aed; }
+  .purple-link:hover  { color: #6d28d9; text-decoration: underline; }
+  .cancel-btn         { background-color: transparent; color: #6b7280; border: 1px solid #d1d5db; }
+  .cancel-btn:hover   { background-color: #f3f4f6; color: #374151; }
+  .alumno-row         { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
+  .alumno-row:last-child { border-bottom: none; }
+</style>
+
+<div class="max-w-3xl mx-auto mt-10 px-4">
+
+  <div class="flex items-center justify-between mb-6">
+    <div class="flex items-center gap-3">
+      <div class="purple-icon-bg flex items-center justify-center w-10 h-10 rounded-xl border">
+        <svg class="purple-icon w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+        </svg>
+      </div>
+      <div>
+        <h1 class="text-xl font-semibold text-heading leading-tight">{{ nombre }}</h1>
+        <p class="text-xs text-body">Detalles del curso</p>
+      </div>
+      <span class="purple-badge ml-1 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold border">
+        Curso
+      </span>
+    </div>
+    
+  </div>
+
+  <div class="purple-border-top bg-neutral-primary-soft border border-default rounded-base shadow-xs overflow-hidden">
+
+    <div class="px-6 py-5 flex items-center gap-4 border-b border-default">
+      <div class="purple-icon-bg flex items-center justify-center w-9 h-9 rounded-lg border shrink-0">
+        <svg class="purple-icon w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+        </svg>
+      </div>
+      <div>
+        <p class="text-xs text-body">Profesor</p>
+        <p class="text-sm font-semibold text-heading">{{ curso_obj.maestro.nombre }} {{ curso_obj.maestro.apellidos }}</p>
+      </div>
+    </div>
+
+    <div class="px-6 py-5">
+
+      <br>
+
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center gap-2">
+          <svg class="purple-icon w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
+          </svg>
+          <h2 class="text-sm font-semibold text-heading">Alumnos Inscritos</h2>
+        </div>
+        
+      </div>
+
+      {% if curso_obj.alumnos %}
+        <div class="rounded-base border border-default overflow-hidden">
+          {% for alumno in curso_obj.alumnos %}
+          <div class="alumno-row px-4 bg-neutral-primary-soft hover:bg-neutral-secondary-medium transition-colors duration-100">
+            <div class="flex items-center gap-3">
+              
+
+              <div class="relative mb-4">
+              <img class="blue-avatar-ring w-12 h-12 rounded-full object-cover shadow-sm"
+                  src="/static/img/jijo.jpeg"
+                  alt="Foto de {{nombre}}" />
+            </div>
+
+              <span class="text-sm font-medium text-heading">{{ alumno.nombre }} {{ alumno.apellidos }}</span>
+            </div>
+            
+            <span class="purple-badge inline-flex items-center px-2 py-0.5 rounded text-xs font-medium border">
+              ID: {{ alumno.id }}
+            </span>
+          </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="flex flex-col items-center justify-center py-10 text-center">
+          <svg class="w-10 h-10 text-body mb-3 opacity-40" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+          </svg>
+          <p class="text-sm text-body">No hay alumnos inscritos todavía.</p>
+          <p class="text-xs text-body opacity-60 mt-1">Usa el botón de abajo para inscribir el primero.</p>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="px-6 py-4 border-t border-default">
+      <a href="/Cursos/inscribir?curso_id={{ curso_obj.id }}"
+        class="purple-btn inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-base active:scale-95 transition-all duration-150 shadow-sm focus:outline-none">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
+        </svg>
+        Inscribir nuevo alumno
+      </a>
+      <a href="/Cursos"
+      class="cancel-btn inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-base transition-all duration-150 focus:outline-none">
+      ← Volver
+    </a>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

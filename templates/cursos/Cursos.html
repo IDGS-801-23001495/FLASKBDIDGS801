@@ -1,0 +1,91 @@
+{% extends "layout.html" %}
+
+{% block container %}
+
+<style>
+  .purple-icon-bg    { background-color: rgba(139, 92, 246, 0.10); border-color: rgba(139, 92, 246, 0.20); }
+  .purple-icon       { color: #8b5cf6; }
+  .purple-badge      { background-color: rgba(139, 92, 246, 0.10); border-color: rgba(139, 92, 246, 0.20); color: #7c3aed; }
+  .purple-btn        { background-color: #7c3aed; color: #fff; }
+  .purple-btn:hover  { background-color: #6d28d9; }
+  .purple-border-top { border-top: 3px solid #8b5cf6; }
+  .purple-thead      { background-color: rgba(139, 92, 246, 0.05); }
+  .purple-row:hover  { background-color: rgba(139, 92, 246, 0.05); }
+  .purple-link       { color: #7c3aed; }
+  .purple-link:hover { color: #6d28d9; text-decoration: underline; }
+</style>
+
+<div class="py-20 relative overflow-x-auto sm:rounded-lg">
+
+    <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center gap-3">
+            <div class="purple-icon-bg flex items-center justify-center w-10 h-10 rounded-xl border">
+                <svg class="purple-icon w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+                </svg>
+            </div>
+            <div>
+                <h1 class="text-xl font-semibold text-heading leading-tight">Cursos</h1>
+                <p class="text-xs text-body">Administración de materias y asignaciones</p>
+            </div>
+        </div>
+
+        <div class="flex gap-3">
+            <a href="/Cursos/inscribir" class="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-base border border-default-medium hover:bg-neutral-secondary-medium transition-all">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a5.97 5.97 0 0 0-.942 3.197M12 10.5a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/></svg>
+                Inscribir Alumno
+            </a>
+            <a href="/Cursos/registrar" class="purple-btn inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-base active:scale-95 transition-all shadow-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M12 4.5v15m7.5-7.5h-15"/></svg>
+                Nuevo Curso
+            </a>
+        </div>
+    </div>
+
+    <div class="purple-border-top relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
+    <table class="w-full text-sm text-left text-body">
+        <thead class="purple-thead text-xs uppercase tracking-wider text-body border-b border-default-medium">
+            <tr>
+                <th scope="col" class="px-6 py-3 font-semibold">Curso</th>
+                <th scope="col" class="px-6 py-3 font-semibold">Descripción</th>
+                <th scope="col" class="px-6 py-3 font-semibold">Maestro Asignado</th>
+                <th scope="col" class="px-6 py-3 font-semibold">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in cursos %}
+            <tr class="purple-row bg-neutral-primary-soft border-b border-default transition-colors duration-100">
+                <th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">
+                    {{ c.nombre }}
+                </th>
+                <td class="px-6 py-4">{{ c.descripcion }}</td>
+                <td class="px-6 py-4">
+                    <span class="purple-badge px-2 py-1 rounded text-xs font-medium border">
+                        {{ c.maestro.nombre }} {{ c.maestro.apellidos }}
+                    </span>
+                </td>
+                <td class="px-6 py-4 flex items-center gap-3">
+                    <a href="/Cursos/inscribir?curso_id={{c.id}}" 
+                       class="purple-link inline-flex items-center gap-1 text-xs font-medium transition-colors">
+                        + Inscribir
+                    </a>
+                    <a href="/Cursos/modificar?id={{c.id}}" 
+                       class="inline-flex items-center gap-1 text-xs font-medium text-shadow-emerald-500 hover:underline transition-colors">
+                        Editar
+                    </a>
+                    <a href="/Cursos/detalles?id={{c.id}}" 
+                       class="inline-flex items-center gap-1 text-xs font-medium text-fg-purple hover:underline transition-colors">
+                        Detalles
+                    </a>
+                    <a href="/Cursos/eliminar?id={{c.id}}" 
+                       class="inline-flex items-center gap-1 text-xs font-medium text-red-600 hover:text-red-600 hover:underline transition-colors">
+                        Eliminar
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+{% endblock %}
